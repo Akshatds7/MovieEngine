@@ -44,7 +44,7 @@ function App() {
     return favorites.some((fav) => fav.imdbID === id);
   };
 
-  const searchMovies = (async (title, newPage = 1) => {
+  const searchMovies = async (title, newPage = 1) => {
     setLoading(true);
     setError(null);
     try {
@@ -69,8 +69,7 @@ function App() {
     } finally {
       setLoading(false);
     }
-  }, [selectedType]);
-
+  };
 
   const fetchMovieDetails = async (imdbID) => {
     try {
@@ -85,14 +84,9 @@ function App() {
   };
 
   useEffect(() => {
-   searchMovies(searchTerm, 1);
-  } , [searchTerm]);
-useEffect(() => {
-  if (!showFavorites) {
     searchMovies(searchTerm, 1);
-  }
-}, [searchTerm, selectedType, searchMovies]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSearch = (e) => {
     e.preventDefault();
