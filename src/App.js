@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useCallback} from 'react';
 import MovieCard from './components/MovieCard';
 import MovieModal from './components/MovieModal';
 import './App.css';
@@ -44,7 +44,7 @@ function App() {
     return favorites.some((fav) => fav.imdbID === id);
   };
 
-  const searchMovies = async (title, newPage = 1) => {
+  const searchMovies = useCallback(async (title, newPage = 1) => {
     setLoading(true);
     setError(null);
     try {
@@ -69,7 +69,7 @@ function App() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [selectedType]);
 
   const fetchMovieDetails = async (imdbID) => {
     try {
@@ -119,7 +119,12 @@ function App() {
       searchMovies(searchTerm, page);
     }
   }, [page, searchTerm, selectedType, showFavorites]);
- 
+ useEffect(() => {
+  if (!showFavorites) {
+    searchMovies(searchTerm, 1);
+  }
+}, [searchTerm, selectedType, showFavorites, searchMovies]);
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
