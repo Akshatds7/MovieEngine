@@ -119,6 +119,10 @@ function App() {
       searchMovies(searchTerm, page);
     }
   }, [page, searchTerm, selectedType, showFavorites]);
+  useEffect(() => {
+  searchMovies();
+}, [searchMovies]);
+
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
