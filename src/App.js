@@ -87,11 +87,6 @@ function App() {
     searchMovies(searchTerm, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  searchMovies();
-}, []);
-
 
   const handleSearch = (e) => {
     e.preventDefault();
